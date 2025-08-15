@@ -107,6 +107,10 @@ function hideSplash() {
     // Remove from layout after transition ends
     setTimeout(() => {
         if (el && el.parentNode) el.parentNode.removeChild(el);
+
+        // After removing the splash element:
+        afterSplashRemovedInitScenes();
+
         // If you’ll add ScrollTriggers later, refresh here.
         try { ScrollTrigger && ScrollTrigger.refresh && ScrollTrigger.refresh(); } catch (e) { }
     }, 650);
@@ -138,3 +142,110 @@ function bindSplashDismissEvents() {
 
 // Ensure listeners are attached after the DOM is ready
 document.addEventListener("DOMContentLoaded", bindSplashDismissEvents);
+
+// ───────────────── Scene Engine: pin + progress + caption layout ─────────────────
+
+// Call this after the splash is removed (see hook below)
+function initScenes() {
+    const scenes = Array.from(document.querySelectorAll('.scene'));
+    scenes.forEach(setupScene);
+
+    // Keep captions aligned on resize/refresh
+    window.addEventListener('resize', layoutAllCaptions);
+    if (window.ScrollTrigger) {
+        ScrollTrigger.addEventListener('refresh', layoutAllCaptions);
+    }
+
+    layoutAllCaptions();
+}
+
+function setupScene(scene) {
+    const pinPct = parseInt(scene.dataset.pin || '120', 10); // default 120%
+    const st = ScrollTrigger.create({
+        trigger: scene,
+        start: 'top top',
+        end: `+=${pinPct}%`,
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+            // If this scene exposes a progress hook, call it with 0→1
+            const hook = scene.dataset.progress;
+            if (hook && typeof sceneProgressHooks[hook] === 'function') {
+                sceneProgressHooks[hook](scene, self.progress);
+            }
+            // Also drive caption show/hide via data thresholds (optional)
+            updateCaptionVisibility(scene, self.progress);
+        }
+    });
+
+    // Initial layout of captions for this scene
+    layoutCaptionsForScene(scene);
+    return st;
+}
+
+// Simple registry for named progress hooks (attach your timelines here)
+const sceneProgressHooks = {
+    // Example: tie evaporation progress to your sun/cloud/water animation
+    evapProgress(scene, p) {
+        // placeholder: you’ll wire GSAP tweens here using `p` (0..1)
+        // e.g., gsap.to('#sun', { yPercent: gsap.utils.mapRange(0,1,200,0)(p), overwrite: 'auto' });
+    }
+};
+
+// ── Caption positioning relative to a 1920x1080 stage box ──
+function layoutAllCaptions() {
+    document.querySelectorAll('.scene').forEach(layoutCaptionsForScene);
+}
+
+function layoutCaptionsForScene(scene) {
+    const stage = scene.querySelector('.stage');
+    const overlays = scene.querySelector('.overlays');
+    if (!stage || !overlays) return;
+
+    // Determine the visible box where the 16:9 content lives (letterboxed inside .stage)
+    const stageRect = stage.getBoundingClientRect();
+    const aspect = 16 / 9;
+    let boxW = stageRect.width;
+    let boxH = boxW / aspect;
+    if (boxH > stageRect.height) {
+        boxH = stageRect.height;
+        boxW = boxH * aspect;
+    }
+    const boxLeft = (stageRect.width - boxW) / 2;
+    const boxTop = (stageRect.height - boxH) / 2;
+
+    // Position each .cap based on data-x / data-y (percent of 1920x1080)
+    const caps = overlays.querySelectorAll('.cap');
+    caps.forEach(cap => {
+        const x = parseFloat(cap.dataset.x || '50'); // percent of width
+        const y = parseFloat(cap.dataset.y || '50'); // percent of height
+
+        // Convert percents to pixels inside the letterboxed area
+        const leftPx = boxLeft + (x / 100) * boxW;
+        const topPx = boxTop + (y / 100) * boxH;
+
+        // Because overlays is absolute inside the scene, set offsets relative to stage top-left
+        cap.style.left = `${leftPx}px`;
+        cap.style.top = `${topPx}px`;
+    });
+}
+
+// Optional: show/hide captions by scene progress gates
+function updateCaptionVisibility(scene, p) {
+    const caps = scene.querySelectorAll('.overlays .cap');
+    caps.forEach(cap => {
+        const showAt = parseFloat(cap.dataset.show || '0'); // e.g., 0.25
+        const hideAt = parseFloat(cap.dataset.hide || '2'); // default >1 means never hide
+        const isOn = p >= showAt && p <= hideAt;
+        cap.style.opacity = isOn ? '1' : '0';
+        cap.style.visibility = isOn ? 'visible' : 'hidden';
+    });
+}
+
+// ── Hook scene init after splash is gone ──
+// In your existing hideSplash(), after removing the splash, call initScenes() and refresh:
+function afterSplashRemovedInitScenes() {
+    try { initScenes(); ScrollTrigger && ScrollTrigger.refresh && ScrollTrigger.refresh(); } catch (e) { }
+}
+

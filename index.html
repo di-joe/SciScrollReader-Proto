@@ -25,6 +25,69 @@
         <button class="menu" aria-label="Menu">☰</button>
     </header>
 
+    <!-- Main content area -->
+    <!-- Title Scene -->
+    <section class="scene" id="scene-title" data-pin="140">
+        <figure class="stage" aria-hidden="true">
+            <!-- Use a 1920x1080 hero image or a placeholder box -->
+            <img src="title_image_fpo.jpg" alt="" />
+            <!-- If you don't have an image yet, use a neutral box:
+        <div class="stage-box" style="background:#e8eef9;border:1px dashed #aac;"></div>
+        -->
+        </figure>
+
+        <div class="copy">
+            <div class="center-card">
+                <h1>Earth’s Water Cycle</h1>
+                <p>MS-ESS2-4 • Model how water moves through Earth’s systems.</p>
+            </div>
+            <div class="bottom-chip">A living system powered by the Sun</div>
+        </div>
+
+        <div class="overlays">
+            <!-- No captions in the title scene -->
+        </div>
+    </section>
+
+    <!-- Intro Scene -->
+    <section class="scene" id="scene-intro" data-pin="140">
+        <figure class="stage" aria-hidden="true">
+            <img src="intro_bg_1920x1080.jpg" alt="" />
+        </figure>
+
+        <div class="copy">
+            <div class="center-card">
+                <p>Water on Earth is incredibly old… (your intro text here)</p>
+            </div>
+        </div>
+
+        <div class="overlays"></div>
+    </section>
+
+    <!-- Evaporation Scene (with an SVG and one caption test) -->
+    <section class="scene" id="scene-evap" data-pin="250" data-progress="evapProgress">
+        <figure class="stage">
+            <!-- Inline or injected SVG; for now you can img a placeholder -->
+            <!-- Replace with your inline SVG when ready -->
+            <img src="evap_placeholder_1920x1080.jpg" alt="Diagram of evaporation" />
+        </figure>
+
+        <div class="copy">
+            <div class="center-card">
+                <h2>Goin’ Up!</h2>
+                <p>Sunlight warms the surface. Some molecules escape into the air as water vapor.</p>
+            </div>
+        </div>
+
+        <div class="overlays">
+            <!-- Example caption positioned at 72% x, 28% y; shows between 0.25–0.55 progress -->
+            <div class="cap" data-label="Sun warms surface" data-x="72" data-y="28" data-show="0.25" data-hide="0.55">
+                Energy from the Sun heats the water at the surface.
+            </div>
+        </div>
+    </section>
+
+
     <script src="script.js"></script>
 
 </body>
