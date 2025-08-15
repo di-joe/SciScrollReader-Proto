@@ -157,7 +157,6 @@ body {
     isolation: isolate;
     /* layers don’t bleed beyond */
     background: #fff;
-    border: #0b5bd3 3px solid;
 }
 
 /* The visual layer (image or SVG) that can stay in place while text changes */
@@ -169,7 +168,6 @@ body {
     place-items: center;
     /* centers the child visual */
     z-index: 0;
-    border: crimson 3px solid;
 }
 
 
