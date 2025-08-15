@@ -123,13 +123,6 @@ body {
     cursor: pointer;
 }
 
-/* Give content room below the fixed bar */
-main {
-    padding: calc(var(--header-h) + 1rem) 1rem 2rem;
-    max-width: 70ch;
-    margin: 0 auto;
-}
-
 /* Subtle hover polish (optional) */
 .brand:hover {
     opacity: 0.9;
@@ -164,6 +157,7 @@ main {
     isolation: isolate;
     /* layers don’t bleed beyond */
     background: #fff;
+    border: #0b5bd3 3px solid;
 }
 
 /* The visual layer (image or SVG) that can stay in place while text changes */
@@ -310,4 +304,15 @@ main {
     max-width: none;
     padding-left: 0;
     padding-right: 0;
+}
+
+/* Reset UA margins on <figure> so the stage truly fills the scene */
+figure,
+.scene .stage {
+    margin: 0;
+}
+
+/* (optional, just to be explicit) */
+.scene .stage {
+    width: 100%;
 }
