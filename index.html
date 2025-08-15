@@ -4,16 +4,29 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>New Site (Linear)</title>
+    <title>Science Scroll Reader</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <header class="top-bar">New Site is live</header>
-    <main>
-        <p>Hello, world. If you can see this on GitHub Pages, the new repo works.</p>
-    </main>
+    <!-- Splash screen overlay -->
+    <div id="splashScreen" aria-hidden="true">
+        <!-- SVG injected here via script.js -->
+    </div>
+
+    <!-- Fixed top bar -->
+    <header class="top-bar">
+        <a class="brand" href="https://www.doubleinkpub.com" target="_blank" rel="noopener">
+            <img src="flaskLogoSketch.png" alt="Double Ink logo" class="logo-image" />
+            di Science
+        </a>
+        <button class="menu" aria-label="Menu">☰</button>
+    </header>
+
     <script src="script.js"></script>
+
 </body>
 
 </html>
