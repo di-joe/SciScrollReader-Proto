@@ -38,6 +38,15 @@
     cursor: pointer;
 }
 
+/* Subtle hover polish (optional) */
+.brand:hover {
+    opacity: 0.8;
+}
+
+.menu:hover {
+    opacity: 0.8;
+}
+
 /* Give page content room below the fixed bar */
 main {
     padding: calc(60px + 1rem) 1rem 2rem;
@@ -68,88 +77,36 @@ main {
     display: block;
 }
 
-/* === Baseline font stack (same as previous site) === */
+/* === Baseline font stack === */
 body {
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     line-height: 1.6;
     color: #222;
 }
 
-/* Header height token (matches old site) */
+/* Header height token */
 :root {
     --header-h: 60px;
 }
 
-/* === Top bar (matches previous prototype) === */
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: var(--header-h);
-    background-color: #000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-    z-index: 1000;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2rem;
-    /* “di Science” size from the old site */
-    font-weight: 600;
-}
-
-.logo-image {
-    display: block;
-    height: 50px;
-    /* matches previous logo size */
-    width: 50px;
-    /* ensures consistent box */
-    object-fit: contain;
-}
-
-.menu {
-    color: #fff;
-    font-size: 1.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-/* Subtle hover polish (optional) */
-.brand:hover {
-    opacity: 0.9;
-}
-
-.menu:hover {
-    opacity: 0.85;
-}
 
 /* ───────────────── Scene layout tokens ───────────────── */
 :root {
     --header-h: 60px;
-    /* already used by your top bar */
-    --scene-pad: 1rem;
+    --scene-pad: 2rem;
     /* outer padding for text blocks */
-    --card-radius: 14px;
+    --card-radius: .5em;
     --shadow-soft: 0 6px 24px rgba(0, 0, 0, .12), 0 2px 8px rgba(0, 0, 0, .12);
 
-    /* Caption theme (can tweak later) */
-    --cap-bg: #0b5bd3;
+    /* Caption theme */
+    --cap-bg: #062858;
     --cap-fg: #fff;
-    --cap-accent: #cfe3ff;
+    --cap-accent: #cfffda;
     --cap-pill-fg: #093a8f;
 }
 
 /* ───────────────── Scene anatomy ───────────────── */
-/* Each “scene” is a full-width section we can pin */
+/* Each “scene” is a full-width section */
 .scene {
     position: relative;
     min-height: 100vh;
@@ -170,6 +127,13 @@ body {
     z-index: 0;
 }
 
+.scene h1 {
+    font-size: clamp(2rem, 5vw + 1rem, 12rem);
+}
+
+.copy h2 {
+    font-size: clamp(1.5rem, 2vw + .5rem, 6rem);
+}
 
 /* Full-bleed photos */
 .scene .stage>img {
@@ -182,7 +146,12 @@ body {
     display: block;
 }
 
-.scene .stage>svg,
+.scene .stage>svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
 .scene .stage>.stage-box {
     width: 100%;
     height: 100%;
@@ -203,35 +172,64 @@ body {
     z-index: 2;
     pointer-events: none;
     /* text blocks inside can re-enable if needed */
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.2rem);
+}
+
+/* Title Screen */
+
+.title-bg {
+    max-height: 300px;
+    background: rgba(255, 255, 255, 0.7);
+    /* semi-transparent white */
+    z-index: 10;
+    pointer-events: none;
+    /* let text above it be clickable */
+    grid-row: 2;
+    align-self: center;
+}
+
+.title {
+    align-self: center;
+    justify-self: center;
+    pointer-events: auto;
+    color: #222;
+    text-align: center;
+    z-index: 11;
+
+}
+
+/* Bottom chip (subtitle) */
+.scene .copy .bottom-chip {
+    align-self: end;
+    justify-self: right;
+    margin-bottom: 1.25rem;
+    pointer-events: auto;
+    background: rgba(255, 255, 255, 0.7);
+    color: #222;
+    padding: .5rem .75rem;
+    border-radius: .5em 0 0 .5em;
+    box-shadow: var(--shadow-soft);
+    max-width: 80ch;
+    grid-row: 3;
 }
 
 /* Centered card (e.g., title or intro body) */
+
 .scene .copy .center-card {
     align-self: center;
     justify-self: center;
     pointer-events: auto;
     background: #fff;
     color: #222;
-    padding: calc(var(--scene-pad) + .25rem) calc(var(--scene-pad) + .5rem);
+    padding: calc(var(--scene-pad) + .25rem) calc(var(--scene-pad) + .25rem);
     border-radius: var(--card-radius);
     box-shadow: var(--shadow-soft);
-    max-width: 70ch;
-    text-align: center;
+    max-width: 40ch;
+    text-align: left;
+    grid-row: 2;
+
 }
 
-/* Bottom chip (subtitle) */
-.scene .copy .bottom-chip {
-    align-self: end;
-    justify-self: center;
-    margin-bottom: 1.25rem;
-    pointer-events: auto;
-    background: #fff;
-    color: #222;
-    padding: .5rem .75rem;
-    border-radius: 999px;
-    box-shadow: var(--shadow-soft);
-    max-width: 80ch;
-}
 
 /* Overlays layer for point-of-use captions (positioned relative to the stage box) */
 .scene .overlays {
@@ -252,7 +250,7 @@ body {
     color: var(--cap-fg);
     border-left: 6px solid var(--cap-accent);
     padding: .5rem .75rem;
-    border-radius: var(--card-radius);
+    border-radius: none;
     box-shadow: var(--shadow-soft);
     max-width: 24ch;
     line-height: 1.4;
@@ -271,7 +269,7 @@ body {
     color: var(--cap-pill-fg);
     background: var(--cap-accent);
     padding: .25rem .5rem;
-    border-radius: 999px;
+    border-radius: .25rem;
     margin-bottom: .35rem;
 }
 

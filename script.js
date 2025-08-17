@@ -186,12 +186,37 @@ function setupScene(scene) {
 
 // Simple registry for named progress hooks (attach your timelines here)
 const sceneProgressHooks = {
-    // Example: tie evaporation progress to your sun/cloud/water animation
+    // TITLE: move title band up; chip exits to the right
+    titleProgress(scene, p) {
+        // elements
+        const titleBg = scene.querySelector('.title-bg');
+        const chip = scene.querySelector('.bottom-chip');
+
+
+        // 1) title band goes up and off screen as p→1
+        //    from y = 0vh to y = -120vh (well past the top)
+        if (titleBg) {
+            gsap.set(titleBg, { y: gsap.utils.mapRange(0, 1, 0, -120)(p) + 'vh' });
+            // Optional fade as it leaves (uncomment if desired):
+            // gsap.set(titleBg, { opacity: gsap.utils.mapRange(0.6, 1, 1, 0)(p) });
+        }
+
+        // 2) bottom chip slides right and off as p→1
+        if (chip) {
+            gsap.set(chip, { x: gsap.utils.mapRange(0, 1, 0, 150)(p) + 'vw' });
+            // Optional fade:
+            // gsap.set(chip, { opacity: gsap.utils.mapRange(0.6, 1, 1, 0)(p) });
+        }
+    },
+
+
+
+    // Existing placeholder you already had:
     evapProgress(scene, p) {
-        // placeholder: you’ll wire GSAP tweens here using `p` (0..1)
-        // e.g., gsap.to('#sun', { yPercent: gsap.utils.mapRange(0,1,200,0)(p), overwrite: 'auto' });
+        // (no change here yet)
     }
 };
+
 
 // ── Caption positioning relative to a 1920x1080 stage box ──
 function layoutAllCaptions() {
