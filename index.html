@@ -25,82 +25,40 @@
         <button class="menu" aria-label="Menu">☰</button>
     </header>
 
-    <!-- Main content area -->
-    <!-- Title Scene -->
-    <section class="scene" id="scene-title" data-pin="100" data-progress="titleProgress">
-        <figure class="stage" aria-hidden="true">
-            <!-- Use a 1920x1080 image -->
-            <img src="title_image_fpo.jpg" alt="" />
-        </figure>
 
-        <div class="copy">
-            <div class="title-bg">
-                <div class="title">
-                    <h1>Earth’s Water Cycle</h1>
-                </div>
-            </div>
-            <div class="bottom-chip"><b>MS-ESS2-4</b></div>
-        </div>
+    <!-- Main Content Area -->
+    <div id="titleImage" class="titleStage" style="background-image: url('title_image_fpo.jpg');"></div>
 
-        <div class="overlays">
-            <!-- No captions in the title scene -->
-        </div>
-    </section>
-
-    <!-- Intro Scene -->
-    <section class="scene" id="scene-intro" data-pin="140">
-        <figure class="stage" aria-hidden="true">
-            <img src="title_image_fpo.jpg" alt="" />
-        </figure>
-
-        <div class="copy">
-            <div class="center-card">
-                <p>Water on Earth is incredibly old. The water in your glass today
-                    may have once rained down on an ancient volcano, been frozen for
-                    thousands of years in a glacier, or even been slurped out of a puddle
-                    by a thirsty dinosaur!</p>
-
-                <p>How is that possible?</p>
-
-                <p>Water on Earth doesn’t disappear—it’s always on the move.
-                    It travels through a continuous journey called <strong>the&nbspwater&nbspcycle</strong>,
-                    powered by energy from the Sun.</p>
-
-                <p>In this article, you’ll explore how water moves through the world, and build a model of the water
-                    cycle along
-                    the&nbspway.</p>
+    <div id="titleOverlay">
+        <div id="title-bg1" class="title-bg">
+            <div class="title">
+                <h1>Earth’s Water Cycle</h1>
             </div>
         </div>
 
-        <div class="overlays"></div>
-    </section>
+        <div id="bottom-chip1" class="bottom-chip">MS-ESS2-4</div>
+    </div>
 
-    <!-- Evaporation Scene (with an SVG and one caption test) -->
-    <section class="scene" id="scene-evap" data-pin="250" data-progress="evapProgress">
-        <figure class="stage">
-            <!-- Inline or injected SVG; for now you can img a placeholder -->
-            <!-- Replace with your inline SVG when ready -->
-            <img src="evap_placeholder_1920x1080.jpg" alt="Diagram of evaporation" />
-        </figure>
+    <div id="copy1" class="copy">
+        <p>
+            Water on Earth is incredibly old. The water in your glass today may have once rained down on
+            an ancient volcano, been frozen in a glacier, or even been slurped out of a puddle by a dinosaur.
+        </p>
+    </div>
 
-        <div class="copy">
-            <div class="center-card">
-                <h2>Goin’ Up!</h2>
-                <p>Sunlight warms the surface. Some molecules escape into the air as water vapor.</p>
-            </div>
-        </div>
+    <div id="caption1" class="captionOverlay" style="left: 60%; top: 40%;" data-label="Sun warms surface">
+        Energy from the Sun heats the water at the surface.
+    </div>
 
-        <div class="overlays">
-            <!-- Example caption positioned at 72% x, 28% y; shows between 0.25–0.55 progress -->
-            <div class="cap" data-label="Sun warms surface" data-x="72" data-y="28" data-show="0.25" data-hide="0.55">
-                Energy from the Sun heats the water at the surface.
-            </div>
-        </div>
-    </section>
 
+
+
+
+
+
+    </main>
 
     <script src="script.js"></script>
-
 </body>
 
 </html>

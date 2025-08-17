@@ -87,228 +87,152 @@ body {
 /* Header height token */
 :root {
     --header-h: 60px;
-}
-
-
-/* ───────────────── Scene layout tokens ───────────────── */
-:root {
-    --header-h: 60px;
-    --scene-pad: 2rem;
-    /* outer padding for text blocks */
-    --card-radius: .5em;
     --shadow-soft: 0 6px 24px rgba(0, 0, 0, .12), 0 2px 8px rgba(0, 0, 0, .12);
-
-    /* Caption theme */
-    --cap-bg: #062858;
-    --cap-fg: #fff;
-    --cap-accent: #cfffda;
-    --cap-pill-fg: #093a8f;
 }
 
-/* ───────────────── Scene anatomy ───────────────── */
-/* Each “scene” is a full-width section */
-.scene {
-    position: relative;
-    min-height: 100vh;
-    /* will be pinned by JS, not CSS */
-    isolation: isolate;
-    /* layers don’t bleed beyond */
-    background: #fff;
-}
+/* ──────────────── STAGE LAYERS ──────────────── */
 
-/* The visual layer (image or SVG) that can stay in place while text changes */
-.scene .stage {
-    position: sticky;
-    top: var(--header-h);
-    height: calc(100vh - var(--header-h));
-    display: grid;
-    place-items: center;
-    /* centers the child visual */
-    z-index: 0;
-}
-
-.scene h1 {
-    font-size: clamp(2rem, 5vw + 1rem, 12rem);
-}
-
-.copy h2 {
-    font-size: clamp(1.5rem, 2vw + .5rem, 6rem);
-}
-
-/* Full-bleed photos */
-.scene .stage>img {
+#stage0,
+#stage1,
+.titleStage {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    /* fill the box */
-    object-position: 50% 10%;
-    /* keep a bit more top visible; tweak to taste */
-    display: block;
-}
-
-.scene .stage>svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-
-.scene .stage>.stage-box {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* fill stage, crop overflow */
-    display: block;
-}
-
-/* Text overlay layer (title chips, intro copy, section text) */
-.scene .copy {
-    position: absolute;
-    /* positioned within the pinned scene */
-    inset: 0;
-    /* full scene area; we’ll place inner blocks */
-    display: grid;
-    grid-template-rows: 1fr auto 1fr;
-    /* makes centering/bottom placement easy */
-    z-index: 2;
+    background-size: cover;
+    background-position: center;
     pointer-events: none;
-    /* text blocks inside can re-enable if needed */
-    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.2rem);
+
 }
 
-/* Title Screen */
+/* z-layer control */
+#stage0 {
+    z-index: 0;
+    transform: translateY(100vh);
+    /* Off the bottom initially */
+}
+
+#stage1 {
+    z-index: 1;
+    transform: translateY(100vh);
+    /* Off the bottom initially */
+}
+
+.titleStage {
+    z-index: 3;
+    transform: none;
+    /* Not offscreen */
+    opacity: 0;
+    /* Transparent until animated */
+}
+
+/* ──────────────── TITLE BAND ──────────────── */
 
 .title-bg {
-    max-height: 300px;
+    position: absolute;
+    top: 40vh;
+    /* vertically centered-ish */
+    left: 0;
+    width: 100vw;
     background: rgba(255, 255, 255, 0.7);
-    /* semi-transparent white */
+    padding: 1rem 0;
+    text-align: center;
     z-index: 10;
-    pointer-events: none;
-    /* let text above it be clickable */
-    grid-row: 2;
-    align-self: center;
+    opacity: 0;
+    transform: translateY(100vh);
+    /* start offscreen, animate in */
 }
 
 .title {
-    align-self: center;
-    justify-self: center;
-    pointer-events: auto;
+    font-size: clamp(2rem, 1.5vw + 1rem, 12rem);
+    font-weight: bold;
     color: #222;
-    text-align: center;
-    z-index: 11;
-
+    max-width: 80vw;
+    margin: 0 auto;
 }
 
-/* Bottom chip (subtitle) */
-.scene .copy .bottom-chip {
-    align-self: end;
-    justify-self: right;
-    margin-bottom: 1.25rem;
-    pointer-events: auto;
+
+/* ──────────────── BOTTOM CHIP ──────────────── */
+
+.bottom-chip {
+    position: absolute;
+    right: 0rem;
+    bottom: 10vh;
     background: rgba(255, 255, 255, 0.7);
-    color: #222;
-    padding: .5rem .75rem;
-    border-radius: .5em 0 0 .5em;
+    padding: 0.5rem 2rem;
+    font-weight: 500;
+    border-radius: 0.5em 0 0 0.5em;
     box-shadow: var(--shadow-soft);
-    max-width: 80ch;
-    grid-row: 3;
-}
-
-/* Centered card (e.g., title or intro body) */
-
-.scene .copy .center-card {
-    align-self: center;
-    justify-self: center;
-    pointer-events: auto;
-    background: #fff;
-    color: #222;
-    padding: calc(var(--scene-pad) + .25rem) calc(var(--scene-pad) + .25rem);
-    border-radius: var(--card-radius);
-    box-shadow: var(--shadow-soft);
-    max-width: 40ch;
-    text-align: left;
-    grid-row: 2;
-
+    opacity: 0;
+    transform: translateY(100vh);
+    /* start offscreen, animate in */
 }
 
 
-/* Overlays layer for point-of-use captions (positioned relative to the stage box) */
-.scene .overlays {
+/* ──────────────── CAPTION OVERLAY ──────────────── */
+
+.copy,
+.captionOverlay {
+    position: relative;
+    /* or absolute if already used */
+    z-index: 100;
+    /* higher than .titleStage (z-index: 2) */
+}
+
+.captionOverlay {
     position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
-    /* captions can ignore clicks unless they have links */
-}
-
-/* Caption chip (HTML, high-contrast, accessible) */
-.scene .overlays .cap {
-    position: absolute;
-    /* we’ll set left/top in JS */
     transform: translate(-50%, -100%);
-    /* anchor at bottom-center “callout” style */
-    background: var(--cap-bg);
-    color: var(--cap-fg);
-    border-left: 6px solid var(--cap-accent);
-    padding: .5rem .75rem;
-    border-radius: none;
-    box-shadow: var(--shadow-soft);
+    /* anchored bottom-center */
+    background: #062858;
+    color: #fff;
+    border-left: 6px solid #bbb80c;
+    padding: 0.5rem 1rem;
     max-width: 24ch;
     line-height: 1.4;
-    font-size: clamp(.9rem, 1.1vw + .2rem, 1rem);
+    font-size: clamp(0.9rem, 1.1vw + 0.2rem, 1rem);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.12);
     pointer-events: auto;
-    /* allow links inside if needed */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
 }
 
-/* Optional tiny label on each caption (data-label) */
-.scene .overlays .cap::before {
-    content: attr(data-label);
-    display: inline-block;
-    font-size: .72rem;
-    font-weight: 600;
-    letter-spacing: .02em;
-    color: var(--cap-pill-fg);
-    background: var(--cap-accent);
-    padding: .25rem .5rem;
-    border-radius: .25rem;
-    margin-bottom: .35rem;
+/* Optional label line inside captions */
+/* .captionOverlay::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: #093a8f;
+        background: #cfffda;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        margin-bottom: 0.35rem;
+    } */
+
+/* ---------- Copy ----------------- */
+.copy {
+    background: #fff;
+    color: #222;
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.2rem);
+    padding: 2rem;
+    margin: 4rem auto;
+    max-width: 60ch;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-soft);
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(100vh);
+    /* start offscreen, animate in */
 }
 
-/* Mobile polish */
-@media (max-width: 900px) {
-    .scene .copy .center-card {
-        max-width: 92vw;
-    }
-
-    .scene .overlays .cap {
-        max-width: 70vw;
-    }
-}
-
-/* Remove any stray page margins */
-html,
-body {
-    margin: 0;
-}
-
-/* Ensure the pinned stage clips overflow so there are no edge halos */
-.scene .stage {
-    overflow: hidden;
-}
-
-/* OVERRIDE: let main go edge-to-edge so .scene can reach the viewport */
-main {
-    max-width: none;
-    padding-left: 0;
-    padding-right: 0;
-}
-
-/* Reset UA margins on <figure> so the stage truly fills the scene */
-figure,
-.scene .stage {
-    margin: 0;
-}
-
-/* (optional, just to be explicit) */
-.scene .stage {
-    width: 100%;
+#titleOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 4;
+    /* must be higher than .titleStage */
+    pointer-events: none;
+    /* text overlays are not interactive yet */
 }
