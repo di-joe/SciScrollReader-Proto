@@ -155,6 +155,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const snowVideo = document.querySelector(".slide-7 .background-image");
 
+        const titleVideo = document.querySelector(".slide-1 .background-image");
+
 
         // Timeline for Slide 1
 
@@ -187,6 +189,8 @@ document.addEventListener("DOMContentLoaded", () => {
         slide1aTimeline
 
             .to(".slide-1 .title-wrapper", { opacity: 0, transform: 'translateY(-50vh)', }, "+=0")
+
+            .call(() => titleVideo.pause(), [], "<")
 
             .to(".bottom-chip", { xPercent: 100, duration: .2 }, "-=0.5")
 
@@ -628,7 +632,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .to("#snow-caption", { autoAlpha: 0, duration: 1 }, 0)
             .call(() => snowVideo.pause(), [], "<")
             .to(snowVideo, { autoAlpha: 0, duration: 1 }, 0)
-            .from(".slide-8 .background-image", { autoAlpha: 0, duration: 1 })
+            .from(".slide-8 .background-image", { autoAlpha: 0, duration: 1 }, ">-.5")
             .to("#hail-caption", { autoAlpha: 1, y: -10, duration: 1 })
 
             ;
