@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3, .cls-4 {
+        fill: #a9ddf3;
+      }
+
+      .cls-5 {
+        fill: #c7b299;
+      }
+
+      .cls-6 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-4 {
+        stroke: #2012b1;
+        stroke-miterlimit: 10;
+        stroke-width: 4px;
+      }
+
+      .cls-7 {
+        opacity: .54;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="1005" y1="107" x2="1005" y2="495.87" gradientTransform="matrix(1, 0, 0, 1, 0, 0)" gradientUnits="userSpaceOnUse">
+      <stop offset=".254" stop-color="#ffff58"/>
+      <stop offset=".785" stop-color="#ffe52f"/>
+      <stop offset=".999" stop-color="#ffdb1e"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2"/>
+  <g id="Layer_1" data-name="Layer 1">
+    <rect class="cls-2" x="192" y="108" width="1611" height="505"/>
+    <g id="water">
+      <rect class="cls-3" x="112" y="527" width="1741" height="490"/>
+    </g>
+    <circle id="mol5" class="cls-4" cx="529" cy="644" r="20"/>
+    <circle id="topMol2" class="cls-4" cx="933" cy="559" r="20"/>
+    <circle id="mol4" class="cls-4" cx="1535" cy="784" r="20"/>
+    <circle id="mol3" class="cls-4" cx="1308" cy="673" r="20"/>
+    <circle id="mol2" class="cls-4" cx="1040" cy="705" r="20"/>
+    <circle id="mol1" class="cls-4" cx="848" cy="731" r="20"/>
+    <circle id="topMol1" class="cls-4" cx="708" cy="570" r="20"/>
+    <g id="boundary1">
+      <rect class="cls-1" x="192" y="627" width="1611" height="332"/>
+    </g>
+    <g id="boundary2">
+      <rect class="cls-1" x="192" y="527" width="1611" height="143"/>
+    </g>
+    <circle id="mol11" class="cls-4" cx="441" cy="773" r="20"/>
+    <circle id="mol10" class="cls-4" cx="1192" cy="765" r="20"/>
+    <circle id="mol9" class="cls-4" cx="1173" cy="634" r="20"/>
+    <circle id="mol8" class="cls-4" cx="668" cy="706" r="20"/>
+    <circle id="mol7" class="cls-4" cx="1611" cy="654" r="20"/>
+    <circle id="mol6" class="cls-4" cx="388" cy="628" r="20"/>
+    <circle id="mol12" class="cls-4" cx="1378" cy="798" r="20"/>
+    <circle id="topMol3" class="cls-4" cx="1249" cy="560" r="20"/>
+    <circle id="topMol4" class="cls-4" cx="1520" cy="551" r="20"/>
+    <circle id="topMol5" class="cls-4" cx="362" cy="560" r="20"/>
+    <g id="sunlight" class="cls-7">
+      <polygon class="cls-6" points="1439 141 325 527 1571 527 1685 141 1439 141"/>
+    </g>
+    <g id="mask">
+      <path class="cls-5" d="M1920,1080H0V0H1920V1080Zm-277-282.378V301.378c0-15.673-12.705-28.378-28.378-28.378H380.378c-15.673,0-28.378,12.705-28.378,28.378v496.245c0,15.673,12.705,28.378,28.378,28.378H1614.622c15.673,0,28.378-12.705,28.378-28.378Z"/>
+    </g>
+  </g>
+</svg>

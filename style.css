@@ -47,13 +47,7 @@
     opacity: 0.8;
 }
 
-/* Give page content room below the fixed bar */
-main {
-    padding: calc(60px + 1rem) 1rem 2rem;
-    max-width: 70ch;
-    margin: 0 auto;
-    line-height: 1.6;
-}
+
 
 /* Splash screen overlay */
 #splashScreen {
@@ -65,9 +59,8 @@ main {
     justify-content: center;
     z-index: 2000;
     pointer-events: none;
-    /* we’ll dismiss via scroll/key in JS */
     opacity: 1;
-    transition: opacity .6s ease;
+    transition: opacity 1s ease;
 }
 
 #splashScreen svg {
@@ -79,78 +72,134 @@ main {
 
 /* === Baseline font stack === */
 body {
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     line-height: 1.6;
     color: #222;
 }
 
-/* Header height token */
+/* Add this to style.css to prevent scrolling */
+html,
+body {
+    overflow: hidden;
+}
+
+/*  tokens */
 :root {
     --header-h: 60px;
     --shadow-soft: 0 6px 24px rgba(0, 0, 0, .12), 0 2px 8px rgba(0, 0, 0, .12);
 }
 
-/* ──────────────── STAGE LAYERS ──────────────── */
-
-#stage0,
-#stage1,
-.titleStage {
+/* Fixed SVG viewer */
+.fixed-svg-container {
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    /* border: chartreuse 2px dashed; */
+}
+
+.fixed-svg-container svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+/* ──────────────── Slides ──────────────── */
+
+.slide {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.slide.active {
+    display: flex;
+    /* Show the active slide */
+}
+
+.background-image {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center;
-    pointer-events: none;
-
+    object-fit: cover;
+    z-index: -1;
+    /* border: red 1px dashed; */
+    overflow: hidden;
 }
 
-/* z-layer control */
-#stage0 {
-    z-index: 0;
-    transform: translateY(100vh);
-    /* Off the bottom initially */
-}
 
-#stage1 {
-    z-index: 1;
-    transform: translateY(100vh);
-    /* Off the bottom initially */
-}
-
-.titleStage {
-    z-index: 3;
-    transform: none;
-    /* Not offscreen */
-    opacity: 0;
-    /* Transparent until animated */
-}
-
-/* ──────────────── TITLE BAND ──────────────── */
-
-.title-bg {
+.content-wrapper {
     position: absolute;
-    top: 40vh;
-    /* vertically centered-ish */
-    left: 0;
-    width: 100vw;
-    background: rgba(255, 255, 255, 0.7);
-    padding: 1rem 0;
+    bottom: 50;
     text-align: center;
+    opacity: 1;
+    transform: translateY(70vh);
+    background: #fff;
+    text-align: left;
+    color: #222;
+    font-size: clamp(1.5rem, 2vw + 0.5rem, 1.2rem);
+    padding: 2rem 4rem;
+    margin: 4rem auto;
+    max-width: 40ch;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-soft);
+    line-height: 1.6;
+    /* border: blue 1px dashed; */
     z-index: 10;
-    opacity: 0;
-    transform: translateY(100vh);
-    /* start offscreen, animate in */
+}
+
+.title-wrapper {
+    position: absolute;
+    bottom: 40vh;
+    text-align: center;
+    opacity: 1;
+    transform: translateY(70vh);
+    /* border: greenyellow 1px dashed; */
+}
+
+.title-band {
+    /* margin-left: -20px;
+    margin-right: -20px; */
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+    z-index: 3;
+    background: rgba(12, 13, 16, 0.9);
+    width: 100vw;
+    padding: 70px 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .title {
-    font-size: clamp(2rem, 1.5vw + 1rem, 12rem);
+    font-family: zain, sans-serif;
+    font-size: clamp(4rem, 5.5vw + 1rem, 12rem);
     font-weight: bold;
-    color: #222;
+    color: #dfbddd;
     max-width: 80vw;
     margin: 0 auto;
 }
+
 
 
 /* ──────────────── BOTTOM CHIP ──────────────── */
@@ -164,9 +213,8 @@ body {
     font-weight: 500;
     border-radius: 0.5em 0 0 0.5em;
     box-shadow: var(--shadow-soft);
-    opacity: 0;
-    transform: translateY(100vh);
-    /* start offscreen, animate in */
+    opacity: 1;
+    z-index: 4;
 }
 
 
@@ -175,9 +223,7 @@ body {
 .copy,
 .captionOverlay {
     position: relative;
-    /* or absolute if already used */
     z-index: 100;
-    /* higher than .titleStage (z-index: 2) */
 }
 
 .captionOverlay {
@@ -186,7 +232,7 @@ body {
     /* anchored bottom-center */
     background: #062858;
     color: #fff;
-    border-left: 6px solid #bbb80c;
+    border-left: 6px solid #df0ed1;
     padding: 0.5rem 1rem;
     max-width: 24ch;
     line-height: 1.4;
@@ -198,41 +244,124 @@ body {
     transition: opacity 0.3s ease;
 }
 
-/* Optional label line inside captions */
-/* .captionOverlay::before {
-        content: attr(data-label);
-        display: block;
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.02em;
-        color: #093a8f;
-        background: #cfffda;
-        padding: 0.25rem 0.5rem;
-        border-radius: 0.25rem;
-        margin-bottom: 0.35rem;
-    } */
+
+
+
 
 /* ---------- Copy ----------------- */
 .copy {
     background: #fff;
+    position: absolute;
+    text-align: left;
     color: #222;
-    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.2rem);
-    padding: 2rem;
+    font-size: clamp(1.5rem, 2vw + 0.5rem, 1.2rem);
+    padding: 2rem 4rem;
     margin: 4rem auto;
-    max-width: 60ch;
+    max-width: 40ch;
     border-radius: 0.5rem;
     box-shadow: var(--shadow-soft);
     line-height: 1.6;
     opacity: 0;
     transform: translateY(100vh);
-    /* start offscreen, animate in */
 }
 
-#titleOverlay {
+.spacer {
+    height: 100vh;
+    width: 100%;
+    /* just a spacer to push content down */
+}
+
+
+/* various */
+
+#bubble1,
+#bubble2,
+#bubble3,
+#_bub1,
+#_bub2,
+#_bub3,
+#invisibub1,
+#invisibub2,
+#invisibub3,
+#invisibub4,
+#invisibub5,
+#invisibub6,
+#invisibub7,
+#invisibub8,
+#invisibub9,
+#condCloud,
+#zoomCloud,
+#otherclouds,
+#lightning1,
+#lightning2 {
+    visibility: hidden;
+}
+
+/* Control bar */
+/* Add this to the end of style.css */
+.navigation-controls {
     position: fixed;
-    inset: 0;
-    z-index: 4;
-    /* must be higher than .titleStage */
-    pointer-events: none;
-    /* text overlays are not interactive yet */
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5000;
+    /* Ensure it's on top of everything */
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.5rem;
+    border-radius: 12px;
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.navigation-controls button {
+    background-color: #dfbddd;
+    color: #000;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.navigation-controls button:hover {
+    background-color: #fff;
+}
+
+/* Style for disabled buttons (e.g., "Previous" on the first slide) */
+.navigation-controls button:disabled {
+    background-color: #555;
+    color: #999;
+    cursor: not-allowed;
+}
+
+#start-container {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5000;
+    opacity: 0;
+    /* Hidden by default */
+    visibility: hidden;
+}
+
+#startBtn {
+    background-color: #3f99e4;
+    /* A different color to stand out */
+    color: #fff;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#startBtn:hover {
+    background-color: #6cb6f1;
 }

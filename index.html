@@ -4,17 +4,24 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Science Scroll Reader</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <title>di Animated Reader</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Draggable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MorphSVGPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MotionPathPlugin.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Zain&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+
     <!-- Splash screen overlay -->
-    <div id="splashScreen" aria-hidden="true">
-        <!-- SVG injected here via script.js -->
-    </div>
+    <div id="splashScreen" aria-hidden="true"></div>
+
+    <div id="titleImage" class="titleStage" style="background-image: url('title_image_fpo.jpg');"></div>
+
 
     <!-- Fixed top bar -->
     <header class="top-bar">
@@ -25,40 +32,237 @@
         <button class="menu" aria-label="Menu">☰</button>
     </header>
 
+    <!-- Fixed SVG viewer -->
+
+    <div class="fixed-svg-container"></div>
+
 
     <!-- Main Content Area -->
-    <div id="titleImage" class="titleStage" style="background-image: url('title_image_fpo.jpg');"></div>
+    <main>
 
-    <div id="titleOverlay">
-        <div id="title-bg1" class="title-bg">
-            <div class="title">
-                <h1>Earth’s Water Cycle</h1>
+        <section class="slide slide-1">
+
+            <img src="title_image_fpo.jpg" alt="Slide 1 Image" class="background-image">
+            <div class="title-wrapper">
+                <div class="title-band">
+                    <h1 class="title">Earth’s Water Cycle</h1>
+                </div>
             </div>
-        </div>
+            <div class="bottom-chip"><b>MS-ESS2-4 Earth’s Systems</b></div>
+            <div class="copy">
+                <div class="center-card">
+                    <p>Water on Earth is incredibly old. The water in your glass today
+                        may have once rained down on an ancient volcano, been frozen for
+                        thousands of years in a glacier, or even been slurped out of a puddle
+                        by a thirsty dinosaur!</p>
 
-        <div id="bottom-chip1" class="bottom-chip">MS-ESS2-4</div>
-    </div>
+                    <p>How is that possible?</p>
 
-    <div id="copy1" class="copy">
-        <p>
-            Water on Earth is incredibly old. The water in your glass today may have once rained down on
-            an ancient volcano, been frozen in a glacier, or even been slurped out of a puddle by a dinosaur.
-        </p>
-    </div>
+                    <p>Water on Earth doesn’t disappear—it’s always on the move.
+                        It travels through a continuous journey called <strong>the&nbspwater&nbspcycle</strong>,
+                        powered by energy from the Sun and the force of gravity.</p>
 
-    <div id="caption1" class="captionOverlay" style="left: 60%; top: 40%;" data-label="Sun warms surface">
-        Energy from the Sun heats the water at the surface.
-    </div>
+                    <p>In this lesson, you’ll explore how Earth’s water moves and changes, and build a model of
+                        the water cycle along the&nbspway.</p>
+                </div>
+            </div>
 
+        </section>
 
 
+        <section class="slide slide-2">
+
+            <div id="evaporation-caption" class="captionOverlay" style="top: 150px; left: 300px;">
+                Evaporation is powered by the Sun’s energy.
+            </div>
+            <div id="blowoutCaption1" class="captionOverlay" style="top: 150px; left: 300px; max-width: 50ch;">
+                If we could zoom in and see the water molecules, we would see they are all moving around,
+                like in this model. Energy from the sun can cause some molecules near the surface to break
+                free from the others and rise into the air.
+            </div>
+
+            <div class="content-wrapper">
+
+                <h2>Going Up!</h2>
+                <p>Ever been caught in the rain? Those drops soaking your shirt fell from
+                    the sky. But how did they get up there?</p>
+
+                <p>Water makes the trip from Earth’s surface into the atmosphere through a process called
+                    <strong>evaporation</strong>.
+                </p>
+
+                <p>When sunlight warms the surface of a pond, puddle, or ocean, it transfers just enough energy
+                    to
+                    some water molecules near the surface to break free and escape into the air
+                    as invisible water vapor. If the air around the molecules is dry enough, those
+                    tiny bits of water can drift upward, rising higher and higher into the
+                    atmosphere.</p>
+
+        </section>
 
 
+        <section class="slide slide-3">
 
+            <div class="content-wrapper">
+
+                <h2>A Little Help From Plants</h2>
+                <p> Plants can also help move water from Earth’s surface into the sky.
+                    Plants can even move water from beneath the surface with the help of
+                    a process called <strong>transpiration</strong>. Transpiration is
+                    similar to evaporation, but it happens when plants release water vapor
+                    through tiny openings in their leaves, called stomata.</p>
+                <p>Water travels from the plant’s roots into the leaves, and as the Sun
+                    warms the leaves, the water evaporates from the stomata and
+                    escapes into the air. This helps to cool the plant and pull more water
+                    and important nutrients into the plant.</p>
+                <p>Water vapor from plant transpiration is an important part of the
+                    water cycle. In fact, plants release far more water vapor into the air
+                    than animals do. In a single day, a large tree can release
+                    hundreds of liters of water vapor into the atmosphere!
+                </p>
+            </div>
+
+            <div id="transpirationCaption" class="captionOverlay" style="top: 50%; left: 20%; max-width: 12ch">
+                This model shows how water moves through a tree from its
+                roots to its leaves, and into the air.
+            </div>
+
+        </section>
+
+        <section class="slide slide-4">
+
+            <div class="content-wrapper">
+                <h2>Chilling Out</h2>
+                <p>Now that we know that water moves from Earth’s surface into the
+                    atmosphere, imagine what would happen if that water just kept rising
+                    and rising. Eventually, all of the water would be gone from Earth’s
+                    surface!</p>
+                <p>Fortunately for all of us, <b>condensation</b> plays a part in the
+                    water cycle. Think of condensation as the opposite of evaporation.
+                    As warm water vapor rises, the molecules lose heat energy to the cold
+                    air high in the atmosphere. As they lose energy, they slow down and
+                    can more easily clump together, forming tiny water droplets. When these
+                    droplets combine with tiny particles of dust or salt in the air, they
+                    can form clouds.</p>
+            </div>
+
+            <div id="condensation-caption" class="captionOverlay" style="top: 150px; left: 300px;">
+                As the droplets rise and cool, they can bind with each other and particles in the atmosphere to form
+                larger droplets and eventually,
+                clouds.
+            </div>
+
+        </section>
+
+        <section class="slide slide-5">
+
+            <div class="content-wrapper">
+                <h2>What Goes Up, Must Come Down</h2>
+                <p>As water droplets in clouds condense and combine with particles to
+                    form clouds, they gain mass. When they gain enough mass, Earth’s gravity
+                    becomes a strong enough force to pull the water back to Earth. Any form of water
+                    that falls from the atmosphere is called <b>precipitation</b>. The four common forms of
+                    precipitation are rain, snow, hail, and sleet.
+                </p>
+
+                <p>Precipitation is a crucial part of the water cycle. Once the water is on the ground, gravity
+                    pulls it downhill into
+                    streams, rivers, lakes, and oceans. Some of it also soaks into the earth, becoming
+                    groundwater.
+                </p>
+            </div>
+
+        </section>
+
+
+        <section class="slide slide-6">
+
+            <img src="gettyimages-904658980_rainFPO2.jpg" alt="A teen in the rain." class="background-image">
+
+            <div id="rain-caption" class="captionOverlay" style="top: 150px; left: 300px;">
+                Rain is precipitation that falls as liquid water.
+            </div>
+
+        </section>
+
+
+        <section class="slide slide-7">
+
+            <video class="background-image" playsinline autoplay muted loop>
+                <source src="gettyimages-485101682-640_adpp_snowVid.mp4" alt="A video of a snowstorm." type="video/mp4">
+            </video>
+
+
+            <div id="snow-caption" class="captionOverlay" style="top: 150px; left: 300px;">
+                Snow forms when it is freezing cold and water vapor turns into ice
+                crystals, which clump together to make snowflakes.
+            </div>
+
+        </section>
+
+
+        <section class="slide slide-8">
+
+            <img src="gettyimages-1327708919-hail.jpg" alt="A person holds large hailstones." class="background-image">
+
+            <div id="hail-caption" class="captionOverlay" style="top: 150px; left: 300px;">
+                Hail forms during powerful thunderstorms when strong winds toss ice pellets up and down
+                inside a cloud. Each trip adds a new layer of ice. Hail can get huge—in 2010, a hailstone the size of a
+                volleyball fell in South Dakota! Watch out!
+            </div>
+
+        </section>
+
+
+        <section class="slide slide-9">
+
+            <img src="gettyimages-2196790972-sleet.jpg" alt="Sleet falls on plants in a forest."
+                class="background-image">
+
+            <div id="sleet-caption" class="captionOverlay" style="top: 150px; left: 300px;">
+                Sleet is a mix of rain and snow. It starts as a snowflake, partially melts into a raindrop,
+                and then refreezes into a tiny ice pellet before hitting the ground.
+            </div>
+
+        </section>
+
+
+        <section class="slide slide-10">
+
+            <div class="content-wrapper">
+                <h2>All Together Now</h2>
+                <p>You have learned about the parts of the water cycle, and the factors that drive them. Think about
+                    the ways these factors interact, and how changes might impact the water cycle. For example, if the
+                    trees around a pond were cut down, allowing more sunlight to reach the pond, what would happen to
+                    the amount of water that evaporates from that pond? What about the water underground around the
+                    pond? If there is more dust in the atmosphere would you expect more or less precipitation? What if
+                    the dust is thick enough to block a significant amount of sunlight?
+                </p>
+                <p>
+                    The next time you get caught in the rain, remember the incredible journey that water has made!
+                </p>
+            </div>
+
+        </section>
 
     </main>
 
+    <div id="start-container">
+        <button id="startBtn">Let's Go!</button>
+    </div>
+
+
+    <div class="navigation-controls">
+        <button id="prevBtn" aria-label="Go to previous section">Previous</button>
+        <button id="replayBtn" aria-label="Replay animation">Replay</button>
+        <button id="nextBtn" aria-label="Go to next section">Next</button>
+    </div>
+
     <script src="script.js"></script>
+</body>
+
+</html>
+<script src="script.js"></script>
 </body>
 
 </html>
