@@ -578,6 +578,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const slide6Timeline = gsap.timeline({ paused: true });
 
+
         slide6Timeline
 
             .to(".slide-5 .content-wrapper", { opacity: 0, transform: 'translateY(-10vh)' }, 0)
@@ -596,7 +597,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             .from("#lightning2", { autoAlpha: 0, duration: .03, repeat: 3, yoyo: true }, ">.25")
 
-            .to("#storm", { autoAlpha: 0, duration: 2 }, ">.5")
+            .from(["#rn12", "#rn2", "#rn4", "#rn20", "#rn10", "#rn1", "#rn7", "#rn13", "#rn9", "#rn16", "#rn23", "#rn19", "#rn5", "#rn6", "#rn22", "#rn18", "#rn11", "#rn3", "#rn8", "#rn21", "#rn17", "#rn14", "#rn15"], { autoAlpha: 0, duration: .2, repeat: -1, yoyo: true, ease: "sine.inOut", stagger: .07 }, "<")
+
+            .to("#storm", { autoAlpha: 0, duration: 2 }, ">2")
 
             .from(".slide-6 .background-image", { autoAlpha: 0, duration: 1 }, ">-1")
 
@@ -665,12 +668,75 @@ document.addEventListener("DOMContentLoaded", () => {
             .to(".slide-9 .background-image", { autoAlpha: 0, duration: 1 }, 0)
             .to(".slide-10 .content-wrapper", { autoAlpha: 1, transform: 'translateY(0)', duration: 1, ease: "back.out(0.5)" }, "<")
 
+            ;
+
+        slideAnimations.push(slide10Timeline);
+
+
+
+        // Slide 10a wrap-up animation
+
+        const slide10aSub = gsap.timeline({ paused: true, repeat: -1 });
+        slide10aSub
+
+            .set("#hide", { autoAlpha: 1 })
+
+            .from(["#arrowStroke1a", "#arrowStroke2a", "#arrowStroke3a"], { duration: .5, drawSVG: 0 })
+
+            .from(["#arrowHead1a", "#arrowHead2a", "#arrowHead3a"], { autoAlpha: 0, duration: .5 }, ">-.1")
+
+            .to(["#arrowStroke1a", "#arrowStroke2a", "#arrowStrokea"], { duration: .5, drawSVG: "100% 100%" }, ">-.2")
+
+            .to(["#arrowStroke1a", "#arrowStroke2a", "#arrowStroke3a", "#arrowHead1a", "#arrowHead2a", "#arrowHead3a"], { autoAlpha: 0, duration: .5 }, ">-.2")
+
+            .to("#glow", { opacity: 1, duration: 1 }, ">-.7")
+
+            .from(["#evap5a", "#evap4a", "#evap1a", "#evap3a", "#evap2a"], { duration: 1, drawSVG: 0, stagger: 0.1, ease: "power2.out" }, 1)
+
+            .from(["#evaph5a", "#evaph4a", "#evaph1a", "#evaph3a", "#evaph2a"], { opacity: 0, duration: .5 }, ">-0.5")
+
+            .to(["#evap5a", "#evap4a", "#evap1a", "#evap3a", "#evap2a"], { duration: .5, drawSVG: "100% 100%", stagger: 0.05, ease: "power2.in" }, ">")
+
+            .to(["#evaph5a", "#evaph4a", "#evaph1a", "#evaph3a", "#evaph2a"], { opacity: 0, duration: .2, stagger: 0.05 }, ">")
+
+            .from(["#tr1a", "#tr2a", "#tr3a", "#tr4a", "#tr5a"], { duration: 1, drawSVG: 0, stagger: 0.1, ease: "power3.inOut" }, 1.2)
+
+            .from(["#tra1a", "#tra2a", "#tra3a", "#tra4a", "#tra5a"], { opacity: 0, duration: .5 }, ">-0.5")
+
+            .to(["#tr1a", "#tr2a", "#tr3a", "#tr4a", "#tr5a"], { duration: 1, drawSVG: "100% 100%", stagger: 0.1, ease: "power3.inOut" }, ">")
+
+            .to(["#tra1a", "#tra2a", "#tra3a", "#tra4a", "#tra5a"], { opacity: 0, duration: .5 }, ">-0.5")
+
+            .to("#glow", { opacity: 0, duration: 1 }, ">-1.5")
+
+            .to(["#clouds", "#otherclouds"], { autoAlpha: 1, duration: 3 }, ">-1")
+
+            .from(["#rn2a", "#rn4a", "#rn10a", "#rn1a", "#rn7a", "#rn9a", "#rn5a", "#rn6a", "#rn3a", "#rn8a"], { autoAlpha: 0, duration: .2, repeat: 3, yoyo: true, ease: "sine.inOut", stagger: .07 }, "<2")
+
+            .to(["#clouds", "#otherclouds"], { autoAlpha: 0, duration: 3 }, ">-1.5")
+
+
+
+
+        const slide10aTimeline = gsap.timeline({ paused: true });
+
+        slide10aTimeline
+
+            .to(".slide-10 .content-wrapper", { opacity: 0, transform: 'translateY(-10vh)' }, 0)
+
+            .to("#evaporationScene", { autoAlpha: 1, duration: 1 })
+
+            .to("#final-caption", { autoAlpha: 1, y: -10, duration: 1 })
+
+            .call(() => slide10aSub.restart(), [], ">-1")
+
 
 
 
             ;
 
-        slideAnimations.push(slide10Timeline);
+        slideAnimations.push(slide10aTimeline);
+
 
 
 
@@ -694,6 +760,7 @@ document.addEventListener("DOMContentLoaded", () => {
             7, // slide8Timeline (hail photo)
             8, // slide9Timeline (sleet photo)
             9, // slide10Timeline (wrap up copy)
+            9, // slide10aTimeline (wrap up animation)
         ];
 
         startBtn.addEventListener('click', () => {
